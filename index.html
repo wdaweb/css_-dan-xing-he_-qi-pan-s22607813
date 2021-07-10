@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>棋盤</title>
+    <style>
+        * {
+            margin: 0;
+            font-family: '標楷體';
+            font-size: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        #main {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #left {
+            height: 800px;
+            background: white;
+            writing-mode: vertical-lr;
+            text-align: center; 
+        }
+
+        #right {
+            height: 800px;
+            background: white;
+            writing-mode: vertical-lr;
+            text-align: center; 
+        }
+
+        #center {
+            width: 720px;
+            height: 720px;
+            background: white;
+            border: 1px solid black;
+            margin: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        table {
+            border: 1px solid black;
+            padding: 0;
+            margin: 0;
+        }
+
+        table td {
+            width: 70px;
+            height: 70px;
+            border: 1px solid black;
+            padding: 0;
+            margin: 0;
+        }
+
+        #line45 {
+            width: 198px;
+            height: 1px;
+            background: black;
+            box-sizing: border-box;
+            transform: rotate(45deg);
+            position: absolute;
+            top: 113px;
+        }
+
+        #line135 {
+            width: 198px;
+            height: 1px;
+            background: black;
+            box-sizing: border-box;
+            transform: rotate(135deg);
+            position: absolute;
+            top: 113px;
+        }
+
+        #line45_down {
+            width: 198px;
+            height: 1px;
+            background: black;
+            box-sizing: border-box;
+            transform: rotate(45deg);
+            position: absolute;
+            bottom: 113px;
+        }
+
+        #line135_down {
+            width: 198px;
+            height: 1px;
+            background: black;
+            box-sizing: border-box;
+            transform: rotate(135deg);
+            position: absolute;
+            bottom: 113px;
+        }
+
+        #chess {
+            width: 620px;
+            height: 690px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        #row1 {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+        }
+        #row2 {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        #row3 {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        #row4 {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .chess_name {
+            width: 60px;
+            height: 60px;
+            border: 1px solid black;
+            box-sizing: border-box;
+            border-radius: 50%;
+            background: white;
+            text-align: center;
+            line-height: 60px;
+            font-size: 1.7rem;
+        }
+
+        #boa_black {
+            width: 60px;
+            height: 60px;
+            border: 1px solid black;
+            background: white;
+            box-sizing: border-box;
+            border-radius: 50%;
+            position: absolute;
+            top: 150px;
+            left: 120px;
+            text-align: center;
+            line-height: 60px;
+            font-size: 1.7rem;
+            z-index: 99;
+        }
+
+        #boa_black2 {
+            width: 60px;
+            height: 60px;
+            border: 1px solid black;
+            background: white;
+            box-sizing: border-box;
+            border-radius: 50%;
+            position: absolute;
+            top: 150px;
+            right: 120px;
+            text-align: center;
+            line-height: 60px;
+            font-size: 1.7rem;
+            z-index: 99;
+        }
+
+        #boa_red {
+            width: 60px;
+            height: 60px;
+            border: 1px solid black;
+            background: white;
+            box-sizing: border-box;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 150px;
+            left: 120px;
+            text-align: center;
+            line-height: 60px;
+            font-size: 1.7rem;
+            z-index: 99;
+        }
+
+        #boa_red2 {
+            width: 60px;
+            height: 60px;
+            border: 1px solid black;
+            background: white;
+            box-sizing: border-box;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 150px;
+            right: 120px;
+            text-align: center;
+            line-height: 60px;
+            font-size: 1.7rem;
+            z-index: 99;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .bolder {
+            font-weight: bolder;
+            font-size: 1.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="left">
+            <span>棋盤裡，車無輪，馬無韁，叫聲將軍提防提防</span>
+        </div>
+        <div id="center">
+
+            <div id="line45"></div>
+            <div id="line135"></div>
+            <div id="line45_down"></div>
+            <div id="line135_down"></div>
+            <div id="boa_black">包</div>
+            <div id="boa_black2">包</div>
+            <div id="boa_red" class="red">炮</div>
+            <div id="boa_red2" class="red">炮</div>
+
+            <div id="chess">
+                <div id="row1">
+                    <div class="chess_name">車</div>
+                    <div class="chess_name">馬</div>
+                    <div class="chess_name">象</div>
+                    <div class="chess_name">士</div>
+                    <div class="chess_name">將</div>
+                    <div class="chess_name">士</div>
+                    <div class="chess_name">象</div>
+                    <div class="chess_name">馬</div>
+                    <div class="chess_name">車</div>
+                </div>
+                <div id="row2">
+                    <div class="chess_name">卒</div>
+                    <div class="chess_name">卒</div>
+                    <div class="chess_name">卒</div>
+                    <div class="chess_name">卒</div>
+                    <div class="chess_name">卒</div>
+                </div>
+                <div id="row3">
+                    <div class="chess_name red">兵</div>
+                    <div class="chess_name red">兵</div>
+                    <div class="chess_name red">兵</div>
+                    <div class="chess_name red">兵</div>
+                    <div class="chess_name red">兵</div>
+                </div>
+                <div id="row4">
+                    <div class="chess_name red">俥</div>
+                    <div class="chess_name red">傌</div>
+                    <div class="chess_name red">相</div>
+                    <div class="chess_name red">仕</div>
+                    <div class="chess_name red">帥</div>
+                    <div class="chess_name red">仕</div>
+                    <div class="chess_name red">相</div>
+                    <div class="chess_name red">傌</div>
+                    <div class="chess_name red">俥</div>
+                </div>
+            </div>
+
+            <table cellspacing="0px">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="8" align="center"><span class="bolder">楚河&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;漢界</span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div id="right">
+            <span>圖畫裡，龍不吟，虎不嘯，小小書僮可笑可笑</span>
+        </div>
+    </div>
+</body>
+</html>
